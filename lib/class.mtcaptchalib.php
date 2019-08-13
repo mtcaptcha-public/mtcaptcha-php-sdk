@@ -11,18 +11,29 @@ class MTCaptchaLib {
      * Validate MTCaptcha Verification Token
      *
      * @param      $verification_token
-     * @return     mixed|string
+     * @return     boolean
      */
     public function validate_token($verification_token) {
+        $result = $this->validate_token_detail($verification_token);
+        return $result->success;
+    }
+
+    /**
+     * Validate MTCaptcha Verification Token - Detail
+     *
+     * @param      $verification_token
+     * @return     mixed|string
+     */
+    public function validate_token_detail($verification_token) {
         if (!$verification_token) {
             $result = new stdclass();
             $result->success = false;
             $result->message = "verification token require";
-            return json_encode($result);
+            return $result;
         }
         $url          = "https://service.mtcaptcha.com/mtcv1/api/checktoken";
         $validate_token_result = $this->post_request($url, $verification_token);
-        return $validate_token_result;
+        return json_decode($validate_token_result);
     }
 
     /**

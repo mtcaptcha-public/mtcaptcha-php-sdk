@@ -4,7 +4,7 @@ require_once dirname(dirname(__FILE__)) . '/config/config.php';
 session_start();
 
 $MTCaptchaSDK = new MTCaptchaLib(MTCAPTCHA_PRIVATE_KEY);
-$result = $MTCaptchaSDK->validate_token($_POST['mtcaptcha-verifiedtoken']);
+$result = $MTCaptchaSDK->validate_token("");
 
 /*
 Example Result
